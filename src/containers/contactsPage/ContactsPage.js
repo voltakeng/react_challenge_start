@@ -21,17 +21,15 @@ export const ContactsPage = ({contacts,onAdd}) => {
 
   useEffect(() => {
     const nameIsDuplicate = contacts.find((contact) => contact.name === name)
-
     if(nameIsDuplicate === undefined){
       setDuplicate(false)
     } else {
       setDuplicate(true)
     }
-
-  }, [name])
+  }, [name, contacts])
 
   return (
-    <div>
+    <>
       <section>
         <h2>
           Add Contact
@@ -52,6 +50,6 @@ export const ContactsPage = ({contacts,onAdd}) => {
         <h2>Contacts</h2>
         <TileList tilelist={contacts} /> 
       </section>
-    </div>
+    </>
   );
 };
