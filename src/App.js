@@ -4,6 +4,8 @@ import { Switch, Route, Redirect, NavLink } from "react-router-dom";
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
 import { ContactsPage } from "./containers/contactsPage/ContactsPage";
 
+import { h1Style } from "./styles/h1"
+
 function App() {
   const [ contact, setContact ] = useState([]); 
 
@@ -23,7 +25,10 @@ function App() {
 
   return (
     <>
-      <nav>
+      <header>
+        <h1 style={h1Style}>Appointment Planner Challenge</h1>
+      </header>
+      <nav style={{textAlign: 'center'}}>
         <NavLink to={ROUTES.CONTACTS} activeClassName="active">
           Contacts
         </NavLink>
@@ -40,8 +45,7 @@ function App() {
             <ContactsPage onAdd={addContact} contacts={contact}/>
           </Route>
           <Route path={ROUTES.APPOINTMENTS}>
-            {/* Add props to AppointmentsPage */}
-            <AppointmentsPage />
+            <AppointmentsPage contacts={contact}/>
           </Route>
         </Switch>
       </main>
