@@ -12,11 +12,11 @@ function App() {
     APPOINTMENTS: "/appointments",
   };
 
-  const addContact = (newContact) => {
+  const addContact = (newName, newPhone, newEmail) => {
     setContact((prev) => {
       return [
         ...prev,
-        newContact
+        {name: newName, phone: newPhone, email: newEmail}
       ]
     }) 
   }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TileList } from "../../components/tileList/TileList"
 
 import { ContactForm } from "../../components/contactForm/ContactForm";
@@ -7,25 +7,36 @@ export const ContactsPage = ({contacts,onAdd}) => {
   const [ name, setName ] = useState("");
   const [ phone, setPhone ] = useState("");
   const [ email, setEmail ] = useState("");
+  const [ duplicate, setDuplicate ] = useState(false); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd({
-        // name: document.getElementById('name').value, 
-        // phone: document.getElementById('phone').value, 
-        // email: document.getElementById('email').value
-    })
+    if(!duplicate){
+      onAdd(name, phone, email); 
+      setName("");
+      setPhone("");
+      setEmail("");
+    }
   };
 
-  /*
-  Using hooks, check for contact name in the 
-  contacts array variable in props
-  */
+  useEffect(() => {
+    const nameIsDuplicate = contacts.find((contact) => contact.name === name)
+
+    if(nameIsDuplicate === undefined){
+      setDuplicate(false)
+    } else {
+      setDuplicate(true)
+    }
+
+  }, [name])
 
   return (
     <div>
       <section>
-        <h2>Add Contact</h2> 
+        <h2>
+          Add Contact
+          {duplicate ? " - Name Already Exists" : ""}
+        </h2> 
         <ContactForm 
           name={name}
           setName={setName}
