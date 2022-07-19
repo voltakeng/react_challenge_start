@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { TileList } from "../../components/tileList/TileList"
 
-export const ContactsPage = () => {
-  /*
-  Define state variables for 
-  contact info and duplicate check
-  */
+import { ContactForm } from "../../components/contactForm/ContactForm";
+
+export const ContactsPage = ({contacts,onAdd}) => {
+  const [ name, setName ] = useState("");
+  const [ phone, setPhone ] = useState("");
+  const [ email, setEmail ] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /*
-    Add contact info and clear data
-    if the contact name is not a duplicate
-    */
+    onAdd({
+        // name: document.getElementById('name').value, 
+        // phone: document.getElementById('phone').value, 
+        // email: document.getElementById('email').value
+    })
   };
 
   /*
@@ -23,16 +26,20 @@ export const ContactsPage = () => {
     <div>
       <section>
         <h2>Add Contact</h2> 
-        <from>
-          <input placeholder='Contact Name'></input>
-          <input placeholder='Contact Phone (###-###-####)'></input>
-          <input placeholder='Contact Email'></input>
-          <button type="submit">Add Contact</button>
-        </from>
+        <ContactForm 
+          name={name}
+          setName={setName}
+          phone={phone}
+          setPhone={setPhone}
+          email={email}
+          setEmail={setEmail}
+          handleSubmit={handleSubmit}
+        />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
+        <TileList contacts={contacts} /> 
       </section>
     </div>
   );
